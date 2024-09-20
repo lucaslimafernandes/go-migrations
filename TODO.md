@@ -51,7 +51,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 
 ### Micro-tasks:
 #### File Handling
-- [ ] Read YAML configuration files.
+- [X] Read YAML configuration files.
 - [X] Read TOML configuration files.
 - [ ] Read SQL migration files.
 - [ ] Create SQL files for migrations (up/down).

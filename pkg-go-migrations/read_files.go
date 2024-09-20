@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/BurntSushi/toml"
+	"gopkg.in/yaml.v3"
 )
 
 type ProjectToml struct {
@@ -20,6 +21,15 @@ type ProjectToml struct {
 	Repository struct {
 		URL string
 	}
+}
+
+type PostgresConfig struct {
+	Postgres struct {
+		Host     string `yaml:"HOST"`
+		Port     string `yaml:"PORT"`
+		User     string `yaml:"USER"`
+		Password string `yaml:"PASSWORD"`
+	} `yaml:"postgres"`
 }
 
 func ReadProjectToml() (*ProjectToml, error) {
@@ -38,5 +48,26 @@ func ReadProjectToml() (*ProjectToml, error) {
 	}
 
 	return &pfile, nil
+
+}
+
+func ReadYamlConfig(filename string) (*PostgresConfig, error) {
+
+	var pg PostgresConfig
+	var err error
+
+	f, err := os.ReadFile(filename)
+	if err != nil {
+		log.Printf("Failed to read configs: %v", err)
+		return nil, err
+	}
+
+	err = yaml.Unmarshal(f, &pg)
+	if err != nil {
+		log.Printf("Some configuration need attention!")
+		return nil, err
+	}
+
+	return &pg, nil
 
 }

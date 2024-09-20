@@ -40,6 +40,11 @@ func main() {
 		return
 	}
 
+	// test
+	// p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
+	// fmt.Println(p)
+	// fmt.Println(e)
+
 	if len(os.Args) == 1 {
 		fmt.Println("Maybe you forget some commands, use '-help' to see available commands.")
 	}
