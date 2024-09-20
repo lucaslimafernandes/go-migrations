@@ -45,6 +45,11 @@ func main() {
 	// fmt.Println(p)
 	// fmt.Println(e)
 
+	// test 2
+	n := "0001"
+	ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")
+	fmt.Println(ls)
+
 	if len(os.Args) == 1 {
 		fmt.Println("Maybe you forget some commands, use '-help' to see available commands.")
 	}
