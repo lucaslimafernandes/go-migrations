@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
@@ -23,12 +24,24 @@ func init() {
 
 func main() {
 
-	_version := flag.Bool("version", false, "Print version of th go-migrations")
+	_version := flag.Bool("version", false, "Print version of the go-migrations")
+	_help := flag.Bool("help", false, "Show available commands")
 
 	flag.Parse()
 
 	if *_version {
-		fmt.Printf("go-migrations - version: %v\n", projectToml.Project.Version)
+		fmt.Printf("%v - version: %v\n", projectToml.Project.Name, projectToml.Project.Version)
+		return
+	}
+
+	if *_help {
+		fmt.Printf("Usage of %v <%v>", projectToml.Project.Name, projectToml.Project.Version)
+		flag.PrintDefaults()
+		return
+	}
+
+	if len(os.Args) == 1 {
+		fmt.Println("Maybe you forget some commands, use '-help' to see available commands.")
 	}
 
 }
