@@ -69,6 +69,12 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Handle concurrent migrations execution.
   
 #### CLI Features
+- [ ] Usage Flags
+  - [X] Version
+  - [X] Help
+  - [ ] migrate_up
+  - [ ] migrate_down
+  - [ ] migrate_ls
 - [ ] Display detailed logs on the CLI for each step of the migration.
 - [ ] Provide CLI options for dry-run migrations.
 
