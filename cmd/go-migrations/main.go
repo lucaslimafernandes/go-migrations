@@ -3,7 +3,23 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
+
+	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
+
+var projectToml *pkggomigrations.ProjectToml
+
+func init() {
+
+	var err error
+	projectToml, err = pkggomigrations.ReadProjectToml()
+
+	if err != nil {
+		log.Fatalln("Failed to initialize go-migrations!")
+	}
+
+}
 
 func main() {
 
@@ -12,7 +28,8 @@ func main() {
 	flag.Parse()
 
 	if *_version {
-		fmt.Println("go-migrations - version: v0.0.0")
+		fmt.Println("go-migrations - version: v0.1.0")
+		fmt.Printf("go-migrations - version: %v\n", projectToml.Project.Version)
 	}
 
 }
