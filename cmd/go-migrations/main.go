@@ -28,7 +28,6 @@ func main() {
 	flag.Parse()
 
 	if *_version {
-		fmt.Println("go-migrations - version: v0.1.0")
 		fmt.Printf("go-migrations - version: %v\n", projectToml.Project.Version)
 	}
 
