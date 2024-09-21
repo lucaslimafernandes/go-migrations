@@ -46,6 +46,7 @@ func main() {
 	fmt.Println(e)
 
 	fmt.Println(pkggomigrations.CheckDbConfigEmpty(p))
+	fmt.Println(pkggomigrations.CheckDbConfigApply(p))
 	// test 2
 	n := "0001"
 	ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")
