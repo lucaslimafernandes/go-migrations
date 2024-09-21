@@ -24,8 +24,27 @@ func init() {
 
 func main() {
 
+	handler()
+
+	// test
+	p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
+	fmt.Println(p)
+	fmt.Println(e)
+
+	fmt.Println(pkggomigrations.CheckDbConfigEmpty(p))
+	fmt.Println(pkggomigrations.CheckDbConfigApply(p))
+	// test 2
+	n := "0001"
+	ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")
+	fmt.Println(ls)
+
+}
+
+func handler() {
+
 	_version := flag.Bool("version", false, "Print version of the go-migrations")
 	_help := flag.Bool("help", false, "Show available commands")
+	_checkConfigs := flag.Bool("check-config", false, "Verify the yaml file")
 
 	flag.Parse()
 
@@ -40,20 +59,13 @@ func main() {
 		return
 	}
 
-	// test
-	p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
-	fmt.Println(p)
-	fmt.Println(e)
-
-	fmt.Println(pkggomigrations.CheckDbConfigEmpty(p))
-	fmt.Println(pkggomigrations.CheckDbConfigApply(p))
-	// test 2
-	n := "0001"
-	ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")
-	fmt.Println(ls)
+	if *_checkConfigs {
+		return
+	}
 
 	if len(os.Args) == 1 {
 		fmt.Println("Maybe you forget some commands, use '-help' to see available commands.")
+		return
 	}
 
 }

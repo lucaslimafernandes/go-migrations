@@ -83,6 +83,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Usage Flags
   - [X] Version
   - [X] Help
+  - [ ] Check Configs
   - [ ] migrate_up
   - [ ] migrate_down
   - [ ] migrate_ls
