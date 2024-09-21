@@ -41,10 +41,11 @@ func main() {
 	}
 
 	// test
-	// p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
-	// fmt.Println(p)
-	// fmt.Println(e)
+	p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
+	fmt.Println(p)
+	fmt.Println(e)
 
+	fmt.Println(pkggomigrations.CheckDbConfigEmpty(p))
 	// test 2
 	n := "0001"
 	ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")

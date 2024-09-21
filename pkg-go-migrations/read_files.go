@@ -25,13 +25,21 @@ type ProjectToml struct {
 	}
 }
 
-type PostgresConfig struct {
+type DBConfig struct {
 	Postgres struct {
+		Apply    bool   `yaml:"APPLY"`
 		Host     string `yaml:"HOST"`
 		Port     string `yaml:"PORT"`
 		User     string `yaml:"USER"`
 		Password string `yaml:"PASSWORD"`
 	} `yaml:"postgres"`
+	Mysql struct {
+		Apply    bool   `yaml:"APPLY"`
+		Host     string `yaml:"HOST"`
+		Port     string `yaml:"PORT"`
+		User     string `yaml:"USER"`
+		Password string `yaml:"PASSWORD"`
+	} `yaml:"mysql"`
 }
 
 func ReadProjectToml() (*ProjectToml, error) {
@@ -53,9 +61,9 @@ func ReadProjectToml() (*ProjectToml, error) {
 
 }
 
-func ReadYamlConfig(filename string) (*PostgresConfig, error) {
+func ReadYamlConfig(filename string) (*DBConfig, error) {
 
-	var pg PostgresConfig
+	var pg DBConfig
 	var err error
 
 	f, err := os.ReadFile(filename)
