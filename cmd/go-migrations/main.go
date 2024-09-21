@@ -44,7 +44,7 @@ func handler() {
 
 	_version := flag.Bool("version", false, "Print version of the go-migrations")
 	_help := flag.Bool("help", false, "Show available commands")
-	_checkConfigs := flag.Bool("check-config", false, "Verify the yaml file")
+	_checkConfig := flag.Bool("check-config", false, "Verify the yaml file")
 
 	flag.Parse()
 
@@ -59,7 +59,7 @@ func handler() {
 		return
 	}
 
-	if *_checkConfigs {
+	if *_checkConfig {
 		return
 	}
 

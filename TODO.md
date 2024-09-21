@@ -18,13 +18,14 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 │   ├── 0001_create_users_table.down.sql
 │   └── 0001_create_users_table.up.sql
 ├── pkg-go-migrations
-│   └── read_files.go
+│   ├── read_files.go
+│   └── utilities.go
 ├── postgres.sh
 ├── project.toml
 ├── README.md
 └── TODO.md
 
-4 directories, 12 files
+4 directories, 13 files
 ```
 
 ---
