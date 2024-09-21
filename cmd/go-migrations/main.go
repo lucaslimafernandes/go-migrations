@@ -60,6 +60,11 @@ func handler() {
 	}
 
 	if *_checkConfig {
+		p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
+		if e != nil {
+			fmt.Println(e)
+		}
+		fmt.Println(pkggomigrations.CheckDbConfig(p))
 		return
 	}
 
