@@ -13,6 +13,9 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 ├── configs.yaml
 ├── go.mod
 ├── go.sum
+├── internal
+│   └── db
+│       └── connect.go
 ├── LICENSE
 ├── migrations
 │   ├── 0001_create_users_table.down.sql
@@ -25,7 +28,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 ├── README.md
 └── TODO.md
 
-4 directories, 13 files
+6 directories, 14 files
 ```
 
 ---
@@ -70,7 +73,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Create general migration files (up/down).
 
 #### Database Operations
-- [ ] Create PostgreSQL connections.
+- [X] Create PostgreSQL connections.
 - [ ] Create MySQL connections.
 - [ ] Test and validate database connections.
 

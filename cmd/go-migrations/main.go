@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
 	"os"
 
+	"github.com/lucaslimafernandes/go-migrations/internal/db"
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
 
@@ -37,6 +39,32 @@ func main() {
 	// n := "0001"
 	// ls, _ := pkggomigrations.ReadMigration(n, ".up.sql")
 	// fmt.Println(ls)
+
+	// Test Conn PG
+	p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
+	database, err := db.PgConnect(*p)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	driver, err := database.Conn(context.Background())
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	rows, err := driver.QueryContext(context.Background(), "SELECT 1")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var res int
+
+		_ = rows.Scan(&res)
+
+		fmt.Println("Row result: ", res)
+	}
 
 }
 
