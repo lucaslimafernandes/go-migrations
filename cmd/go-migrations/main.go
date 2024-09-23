@@ -80,6 +80,7 @@ func handler() {
 	_version := flag.Bool("version", false, "Print version of the go-migrations")
 	_help := flag.Bool("help", false, "Show available commands")
 	_checkConfig := flag.Bool("check-config", false, "Verify the yaml file")
+	_migrateUp := flag.Bool("migrate-up", false, "Make migrations up")
 
 	flag.Parse()
 
@@ -124,6 +125,10 @@ Mysql:
 		}
 
 		return
+	}
+
+	if *_migrateUp {
+		pkggomigrations.Write_in()
 	}
 
 	if len(os.Args) == 1 {
