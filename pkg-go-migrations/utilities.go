@@ -37,8 +37,10 @@ func CheckDbConfigEmpty(db *DBConfig) map[string]bool {
 
 }
 
-func CheckDbConfigApply(db *DBConfig) map[string]bool {
+// func CheckDbConfigApply(db *DBConfig) map[string]bool {
+func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
 
+	var valid bool
 	res := make(map[string]bool)
 
 	if db.Postgres.Apply {
@@ -53,7 +55,13 @@ func CheckDbConfigApply(db *DBConfig) map[string]bool {
 		res["mysql"] = false
 	}
 
-	return res
+	if db.Postgres.Apply && !db.Mysql.Apply {
+		valid = true
+	} else if db.Mysql.Apply && !db.Postgres.Apply {
+		valid = true
+	}
+
+	return res, valid
 
 }
 

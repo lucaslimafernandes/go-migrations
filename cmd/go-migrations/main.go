@@ -42,6 +42,13 @@ func main() {
 
 	// Test Conn PG
 	p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
+
+	_, isValid := p.CheckDbConfigApply()
+	if !isValid {
+		fmt.Println("Maybe you need check the config file, use '-check-config'.")
+		return
+	}
+
 	database, err := db.PgConnect(*p)
 	if err != nil {
 		log.Fatalln(err)
