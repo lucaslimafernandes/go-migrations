@@ -49,6 +49,8 @@ func main() {
 		return
 	}
 
+	pkggomigrations.Write_in()
+
 	database, err := db.PgConnect(*p)
 	if err != nil {
 		log.Fatalln(err)

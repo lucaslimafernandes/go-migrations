@@ -22,11 +22,13 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 │   └── 0001_create_users_table.up.sql
 ├── pkg-go-migrations
 │   ├── read_files.go
-│   └── utilities.go
+│   ├── utilities.go
+│   └── write_files.go
 ├── postgres.sh
 ├── project.toml
 ├── README.md
 └── TODO.md
+
 
 6 directories, 14 files
 ```
@@ -69,6 +71,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [X] Read YAML configuration files.
 - [X] Read TOML configuration files.
 - [X] Read SQL migration files.
+- [ ] Create path migrations.
 - [X] Create SQL files for migrations (up/down).
 - [ ] Create general migration files (up/down).
 
@@ -87,8 +90,8 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Usage Flags
   - [X] Version
   - [X] Help
-  - [ ] Check Configs
-  - [ ] migrate_up
+  - [ ] Check Configs - Alter to method CheckDbConfig in *_checkConfig
+  - [ ] migrate_up - Add Mkdir applied
   - [ ] migrate_down
   - [ ] migrate_ls
 - [ ] Display detailed logs on the CLI for each step of the migration.
