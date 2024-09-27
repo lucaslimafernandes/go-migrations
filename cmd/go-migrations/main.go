@@ -1,13 +1,11 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/lucaslimafernandes/go-migrations/internal/db"
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
 
@@ -41,39 +39,39 @@ func main() {
 	// fmt.Println(ls)
 
 	// Test Conn PG
-	p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
+	// p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
 
-	_, isValid := p.CheckDbConfigApply()
-	if !isValid {
-		fmt.Println("Maybe you need check the config file, use '-check-config'.")
-		return
-	}
+	// _, isValid := p.CheckDbConfigApply()
+	// if !isValid {
+	// 	fmt.Println("Maybe you need check the config file, use '-check-config'.")
+	// 	return
+	// }
 
-	pkggomigrations.Write_in()
+	// pkggomigrations.Write_in()
 
-	database, err := db.PgConnect(*p)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	// database, err := db.PgConnect(*p)
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
 
-	driver, err := database.Conn(context.Background())
-	if err != nil {
-		log.Fatalln(err)
-	}
+	// driver, err := database.Conn(context.Background())
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
 
-	rows, err := driver.QueryContext(context.Background(), "SELECT 1")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer rows.Close()
+	// rows, err := driver.QueryContext(context.Background(), "SELECT 1")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// defer rows.Close()
 
-	for rows.Next() {
-		var res int
+	// for rows.Next() {
+	// 	var res int
 
-		_ = rows.Scan(&res)
+	// 	_ = rows.Scan(&res)
 
-		fmt.Println("Row result: ", res)
-	}
+	// 	fmt.Println("Row result: ", res)
+	// }
 
 }
 
@@ -115,7 +113,17 @@ func handler() {
 	}
 
 	if *_migrateUp {
+
+		p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
+
+		_, isValid := p.CheckDbConfigApply()
+		if !isValid {
+			fmt.Println("Maybe you need check the config file, use '-check-config'.")
+			return
+		}
+
 		pkggomigrations.Write_in()
+
 	}
 
 	if len(os.Args) == 1 {

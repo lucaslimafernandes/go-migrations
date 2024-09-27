@@ -1,1 +1,5 @@
 package pkggomigrations
+
+func MigrateUp() {
+
+}
