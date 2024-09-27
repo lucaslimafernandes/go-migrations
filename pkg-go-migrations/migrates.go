@@ -1,9 +1,29 @@
 package pkggomigrations
 
-func MigrateUp(version string) {
+import (
+	"context"
+	"database/sql"
+	"log"
+)
+
+func MigrateUp(version string, db *sql.DB) {
 
 	fi, _ := ReadMigration(version, ".up.sql")
 
-	_ = write_in(&fi)
+	driver, err := db.Conn(context.Background())
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	result, err := driver.ExecContext(context.Background(), "SELECT 1")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer driver.Close()
+
+	rowsAff, _ := result.RowsAffected()
+	lastId, _ := result.LastInsertId()
+
+	_ = write_in(&fi, int(rowsAff), int(lastId))
 
 }

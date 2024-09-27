@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func write_in(s *string) error {
+func write_in(s *string, rowsAff int, lastId int) error {
 
 	err := os.Mkdir("migrations/applied", os.ModePerm)
 	if err != nil {
@@ -22,6 +22,8 @@ func write_in(s *string) error {
 	formattedTime := dt.Format("2006-01-02 15:04:05")
 
 	*s = fmt.Sprintf("%v\n--Applied at: %s", *s, formattedTime)
+	*s = fmt.Sprintf("%v\n--Rows affected: %d", *s, rowsAff)
+	*s = fmt.Sprintf("%v\n--Last Id inserted: %d", *s, lastId)
 
 	fmt.Println(*s)
 

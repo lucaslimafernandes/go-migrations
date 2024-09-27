@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/lucaslimafernandes/go-migrations/internal/db"
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
 
@@ -128,7 +129,12 @@ func handler() {
 			return
 		}
 
-		pkggomigrations.MigrateUp(*_migrateVersion)
+		database, err := db.PgConnect(*p)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		pkggomigrations.MigrateUp(*_migrateVersion, database)
 
 	}
 
