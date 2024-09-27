@@ -62,30 +62,30 @@ func CheckDbConfigEmpty(db *DBConfig) map[string]bool {
 // - db: A pointer to the DBConfig structure that holds the configuration for Postgres and MySQL.
 //
 // Returns:
-//   - map[string]bool: A map with two keys, "postgres" and "mysql", where each key indicates if
-//     the respective database's Apply field is true or false.
+//   - map[string]string: A map with two keys, "true" and "false", where each key indicates if
+//     the respective database's Apply field is "postgres" or "mysql".
 //   - bool: A boolean value that is true if exactly one of Postgres or MySQL has Apply set to true.
 //
 // Example usage:
 //
 //	config := &DBConfig{...}
 //	res, valid := config.CheckDbConfigApply()
-//	fmt.Println(res["postgres"], valid)
-func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
+//	fmt.Println(res["true"], valid)
+func (db *DBConfig) CheckDbConfigApply() (map[string]string, bool) {
 
 	var valid bool
-	res := make(map[string]bool)
+	res := make(map[string]string)
 
 	if db.Postgres.Apply {
-		res["postgres"] = true
+		res["true"] = "postgres"
 	} else {
-		res["postgres"] = false
+		res["false"] = "postgres"
 	}
 
 	if db.Mysql.Apply {
-		res["mysql"] = true
+		res["true"] = "mysql"
 	} else {
-		res["mysql"] = false
+		res["false"] = "mysql"
 	}
 
 	if db.Postgres.Apply && !db.Mysql.Apply {

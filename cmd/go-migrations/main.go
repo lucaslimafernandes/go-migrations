@@ -87,6 +87,9 @@ func handler() {
 			fmt.Printf("%v - version: %v\n", projectToml.Project.Name, projectToml.Project.Version)
 			p.CheckDbConfig()
 
+			res, isValid := p.CheckDbConfigApply()
+			fmt.Printf("\n%v\n%v\n", isValid, res)
+
 		}
 
 		return
