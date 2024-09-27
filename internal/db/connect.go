@@ -11,7 +11,8 @@ import (
 
 func PgConnect(pgConfig pkggomigrations.DBConfig) (*sql.DB, error) {
 
-	connStr := fmt.Sprintf("user=%s password=%s dbname=postgres sslmode=disable", pgConfig.Postgres.User, pgConfig.Postgres.Password)
+	connStr := fmt.Sprintf("host=%s user=%s password=%s dbname=postgres sslmode=disable", pgConfig.Postgres.Host, pgConfig.Postgres.User, pgConfig.Postgres.Password)
+	fmt.Println(connStr)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {

@@ -15,7 +15,7 @@ func MigrateUp(version string, db *sql.DB) {
 		log.Fatalln(err)
 	}
 
-	result, err := driver.ExecContext(context.Background(), "SELECT 1")
+	result, err := driver.ExecContext(context.Background(), fi)
 	if err != nil {
 		log.Fatalln(err)
 	}
