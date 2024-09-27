@@ -82,6 +82,7 @@ func handler() {
 	_help := flag.Bool("help", false, "Show available commands")
 	_checkConfig := flag.Bool("check-config", false, "Verify the yaml file")
 	_migrateUp := flag.Bool("migrate-up", false, "Make migrations up")
+	_migrateDown := flag.Bool("migrate-down", false, "Make migrations down")
 	_migrateVersion := flag.String("v", "", "Specify the version ID for the migration (Format: 0001)")
 
 	flag.Parse()
@@ -114,11 +115,15 @@ func handler() {
 		return
 	}
 
-	if *_migrateUp {
+	if *_migrateUp || *_migrateDown {
 
 		if *_migrateVersion == "" {
 			fmt.Println("Maybe you need use help '-help'.")
 			return
+		}
+
+		if *_migrateUp && *_migrateDown {
+			fmt.Println("One type migration at a time")
 		}
 
 		p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
@@ -134,7 +139,13 @@ func handler() {
 			log.Fatalln(err)
 		}
 
-		pkggomigrations.Migrate(*_migrateVersion, database, ".up.sql")
+		if *_migrateUp && !*_migrateDown {
+			pkggomigrations.Migrate(*_migrateVersion, database, ".up.sql")
+		}
+
+		if !*_migrateUp && *_migrateDown {
+			pkggomigrations.Migrate(*_migrateVersion, database, ".down.sql")
+		}
 
 	}
 
