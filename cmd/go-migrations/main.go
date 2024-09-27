@@ -134,7 +134,7 @@ func handler() {
 			log.Fatalln(err)
 		}
 
-		pkggomigrations.MigrateUp(*_migrateVersion, database)
+		pkggomigrations.Migrate(*_migrateVersion, database, ".up.sql")
 
 	}
 

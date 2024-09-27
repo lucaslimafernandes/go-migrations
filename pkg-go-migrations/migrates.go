@@ -6,9 +6,10 @@ import (
 	"log"
 )
 
-func MigrateUp(version string, db *sql.DB) {
+// Executes the migration
+func Migrate(version string, db *sql.DB, upDown string) {
 
-	fi, flname, _ := ReadMigration(version, ".up.sql")
+	fi, flname, _ := ReadMigration(version, upDown)
 
 	driver, err := db.Conn(context.Background())
 	if err != nil {
