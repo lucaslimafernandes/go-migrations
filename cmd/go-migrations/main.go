@@ -86,10 +86,6 @@ func handler() {
 		} else {
 			fmt.Printf("%v - version: %v\n", projectToml.Project.Name, projectToml.Project.Version)
 			p.CheckDbConfig()
-
-			res, isValid := p.CheckDbConfigApply()
-			fmt.Printf("\n%v\n%v\n", isValid, res)
-
 		}
 
 		return
@@ -108,13 +104,13 @@ func handler() {
 
 		p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
 
-		_, isValid := p.CheckDbConfigApply()
+		wDb, isValid := p.CheckDbConfigApply()
 		if !isValid {
 			fmt.Println("Maybe you need check the config file, use '-check-config'.")
 			return
 		}
 
-		database, err := db.PgConnect(*p)
+		database, err := db.DBConnect(*p, wDb["true"])
 		if err != nil {
 			log.Fatalln(err)
 		}

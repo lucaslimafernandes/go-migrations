@@ -32,6 +32,7 @@ type DBConfig struct {
 		Port     string `yaml:"PORT"`
 		User     string `yaml:"USER"`
 		Password string `yaml:"PASSWORD"`
+		Dbname   string `yaml:"DBNAME"`
 	} `yaml:"postgres"`
 	Mysql struct {
 		Apply    bool   `yaml:"APPLY"`
@@ -39,6 +40,7 @@ type DBConfig struct {
 		Port     string `yaml:"PORT"`
 		User     string `yaml:"USER"`
 		Password string `yaml:"PASSWORD"`
+		Dbname   string `yaml:"DBNAME"`
 	} `yaml:"mysql"`
 }
 
