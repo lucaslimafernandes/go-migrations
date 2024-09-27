@@ -19,6 +19,21 @@ type VerifyDbConfig struct {
 	} `yaml:"mysql"`
 }
 
+// CheckDbConfigEmpty checks if the database configurations for Postgres and MySQL are set.
+// It returns a map of booleans indicating whether the `Host` field is filled for each database.
+//
+// Params:
+// - db: A pointer to the DBConfig structure that holds the configuration for Postgres and MySQL.
+//
+// Returns:
+//   - map[string]bool: A map with two keys, "postgres" and "mysql", where each key indicates if
+//     the respective database's Host field is filled (true) or empty (false).
+//
+// Example usage:
+//
+//	config := &DBConfig{...}
+//	res := CheckDbConfigEmpty(config)
+//	fmt.Println(res["postgres"]) // true if Postgres Host is set
 func CheckDbConfigEmpty(db *DBConfig) map[string]bool {
 
 	res := make(map[string]bool)
@@ -39,6 +54,23 @@ func CheckDbConfigEmpty(db *DBConfig) map[string]bool {
 
 }
 
+// CheckDbConfigApply verifies if the `Apply` flag is set for Postgres and MySQL in the configuration.
+// It returns a map indicating whether migrations should be applied to each database, and a boolean
+// value indicating if the configuration is valid for one database at a time.
+//
+// Params:
+// - db: A pointer to the DBConfig structure that holds the configuration for Postgres and MySQL.
+//
+// Returns:
+//   - map[string]bool: A map with two keys, "postgres" and "mysql", where each key indicates if
+//     the respective database's Apply field is true or false.
+//   - bool: A boolean value that is true if exactly one of Postgres or MySQL has Apply set to true.
+//
+// Example usage:
+//
+//	config := &DBConfig{...}
+//	res, valid := config.CheckDbConfigApply()
+//	fmt.Println(res["postgres"], valid)
 func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
 
 	var valid bool
@@ -66,6 +98,42 @@ func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
 
 }
 
+// CheckDbConfig validates the configuration for Postgres and MySQL by checking various fields such as
+// `Host`, `Port`, `User`, and `Password`, and prints a formatted summary of the validation results.
+//
+// This function also checks if the configuration is valid by ensuring only one of Postgres or MySQL
+// has the `Apply` flag set to true.
+//
+// Params:
+// - config: A pointer to the DBConfig structure that holds the configuration for Postgres and MySQL.
+//
+// Prints:
+//   - A formatted output detailing whether each field (Apply, Host, Port, User, Password) is valid for
+//     both Postgres and MySQL.
+//   - Whether the configuration is valid, meaning only one database has the `Apply` flag set to true.
+//
+// Example output:
+//
+//	Check configuration DB connect file
+//	Postgres:
+//	  APPLY: true
+//	  HOST: true
+//	  PORT: true
+//	  USER: true
+//	  PASSWORD: true
+//	Mysql:
+//	  APPLY: false
+//	  HOST: false
+//	  PORT: false
+//	  USER: false
+//	  PASSWORD: false
+//	Is Valid: true
+//	go-migrations accept only one DB at a time
+//
+// Example usage:
+//
+//	config := &DBConfig{...}
+//	config.CheckDbConfig()
 func (config *DBConfig) CheckDbConfig() {
 
 	var res VerifyDbConfig

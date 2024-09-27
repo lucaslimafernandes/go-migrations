@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// write_in logs the migration information to some storage (could be a file or a database)
 func write_in(s *string, flname string, rowsAff int, lastId int) error {
 
 	_ = os.Mkdir("migrations/applied", os.ModePerm)

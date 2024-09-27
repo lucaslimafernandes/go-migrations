@@ -42,6 +42,8 @@ type DBConfig struct {
 	} `yaml:"mysql"`
 }
 
+// ReadProjectToml read the file 'project.toml'
+// It returns a pointer to the ProjectToml and an error if something goes wrong.
 func ReadProjectToml() (*ProjectToml, error) {
 
 	var pfile ProjectToml
@@ -61,6 +63,8 @@ func ReadProjectToml() (*ProjectToml, error) {
 
 }
 
+// ReadYamlConfig read the configuration file to connect in a database
+// It returns a pointer to DBConfig and an error if something goes wrong.
 func ReadYamlConfig(filename string) (*DBConfig, error) {
 
 	var pg DBConfig
@@ -82,7 +86,9 @@ func ReadYamlConfig(filename string) (*DBConfig, error) {
 
 }
 
-func ReadMigration(migId string, mode string) (string, string, error) {
+// ReadMigration read the migration file to executes migrations based on the 'version' and 'mode' parameters.
+// It returns the file content, the filename and an error if something goes wrong.
+func ReadMigration(version string, mode string) (string, string, error) {
 
 	var err error
 	var migration string
@@ -94,7 +100,7 @@ func ReadMigration(migId string, mode string) (string, string, error) {
 	}
 
 	for _, value := range ls {
-		if strings.HasPrefix(value.Name(), migId) && strings.HasSuffix(value.Name(), mode) {
+		if strings.HasPrefix(value.Name(), version) && strings.HasSuffix(value.Name(), mode) {
 			migration = value.Name()
 			break
 		}

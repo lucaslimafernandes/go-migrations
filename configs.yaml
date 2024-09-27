@@ -5,3 +5,11 @@ postgres:
   USER: postgres
   PASSWORD: password
 
+mysql:
+  APPLY: false
+  HOST: localhost
+  PORT: 3306
+  USER: myuser
+  PASSWORD: user_password
+  DBNAME: mydb
+  ROOT_PASSWORD: root_password
