@@ -22,7 +22,6 @@ func DBConnect(pgConfig pkggomigrations.DBConfig, wDb string) (*sql.DB, error) {
 		connStr = fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", pgConfig.Mysql.Host, pgConfig.Mysql.User, pgConfig.Mysql.Password, pgConfig.Mysql.Dbname)
 	}
 
-	// enhancement: dbdriver to DBConfig
 	db, err := sql.Open(wDb, connStr)
 	if err != nil {
 		log.Printf("Failed to connect %v: %v\n", wDb, err)
