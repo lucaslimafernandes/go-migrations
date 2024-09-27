@@ -81,6 +81,7 @@ func handler() {
 	_help := flag.Bool("help", false, "Show available commands")
 	_checkConfig := flag.Bool("check-config", false, "Verify the yaml file")
 	_migrateUp := flag.Bool("migrate-up", false, "Make migrations up")
+	_migrateVersion := flag.String("v", "", "Specify the version ID for the migration (Format: 0001)")
 
 	flag.Parse()
 
@@ -113,6 +114,11 @@ func handler() {
 	}
 
 	if *_migrateUp {
+
+		if *_migrateVersion == "" {
+			fmt.Println("Maybe you need use help '-help'.")
+			return
+		}
 
 		p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
 
