@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-func write_in(s *string, rowsAff int, lastId int) error {
+func write_in(s *string, flname string, rowsAff int, lastId int) error {
 
-	err := os.Mkdir("migrations/applied", os.ModePerm)
-	if err != nil {
-		fmt.Println("Failed to create '/migrations/applied' path: ", err)
-		return err
-	}
+	_ = os.Mkdir("migrations/applied", os.ModePerm)
+	// if err != nil {
+	// fmt.Println("Failed to create '/migrations/applied' path: ", err)
+	// return err
+	// }
 
 	// fmt.Println("Write this function to write in sql files: Applied datetime")
 
@@ -27,7 +27,7 @@ func write_in(s *string, rowsAff int, lastId int) error {
 
 	fmt.Println(*s)
 
-	filePath := fmt.Sprintf("migrations/applied/%s", "filename.sql")
+	filePath := fmt.Sprintf("migrations/applied/%s", flname)
 	newFile, err := os.Create(filePath)
 	if err != nil {
 		fmt.Println("Failed to create file: ", err)

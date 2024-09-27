@@ -6,7 +6,6 @@ import (
 	"log"
 
 	_ "github.com/lib/pq"
-
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
 )
 

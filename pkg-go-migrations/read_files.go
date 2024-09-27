@@ -82,7 +82,7 @@ func ReadYamlConfig(filename string) (*DBConfig, error) {
 
 }
 
-func ReadMigration(migId string, mode string) (string, error) {
+func ReadMigration(migId string, mode string) (string, string, error) {
 
 	// Need return filename
 	var err error
@@ -92,7 +92,7 @@ func ReadMigration(migId string, mode string) (string, error) {
 	ls, err := os.ReadDir("migrations")
 	if err != nil {
 		log.Printf("Failed to load path 'migrations': %v\n", err)
-		return "nil", err
+		return "nil", "nil", err
 	}
 
 	for _, value := range ls {
@@ -105,8 +105,8 @@ func ReadMigration(migId string, mode string) (string, error) {
 	f, err := os.ReadFile(fmt.Sprintf("migrations/%s", migration))
 	if err != nil {
 		log.Printf("Failed to read file (%s): %v\n", migration, err)
-		return "nil", err
+		return "nil", "nil", err
 	}
 
-	return string(f), err
+	return string(f), migration, err
 }

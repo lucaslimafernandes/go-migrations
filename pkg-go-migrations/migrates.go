@@ -8,7 +8,7 @@ import (
 
 func MigrateUp(version string, db *sql.DB) {
 
-	fi, _ := ReadMigration(version, ".up.sql")
+	fi, flname, _ := ReadMigration(version, ".up.sql")
 
 	driver, err := db.Conn(context.Background())
 	if err != nil {
@@ -24,6 +24,6 @@ func MigrateUp(version string, db *sql.DB) {
 	rowsAff, _ := result.RowsAffected()
 	lastId, _ := result.LastInsertId()
 
-	_ = write_in(&fi, int(rowsAff), int(lastId))
+	_ = write_in(&fi, flname, int(rowsAff), int(lastId))
 
 }
