@@ -128,7 +128,7 @@ func handler() {
 			return
 		}
 
-		pkggomigrations.Write_in()
+		pkggomigrations.MigrateUp(*_migrateVersion)
 
 	}
 
