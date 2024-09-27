@@ -71,6 +71,8 @@ func (config *DBConfig) CheckDbConfig() {
 
 	var res VerifyDbConfig
 
+	_, isValid := config.CheckDbConfigApply()
+
 	//
 	// Verification Postgres
 	//
@@ -156,9 +158,12 @@ Mysql:
 	USER: %v
 	PASSWORD: %v
 
+Is Valid: %v
+go-migrations accept only one DB at a time 
+
 `,
 		res.Postgres.Apply, res.Postgres.Host, res.Postgres.Port, res.Postgres.User, res.Postgres.Password,
-		res.Mysql.Apply, res.Mysql.Host, res.Mysql.Port, res.Mysql.User, res.Mysql.Password,
+		res.Mysql.Apply, res.Mysql.Host, res.Mysql.Port, res.Mysql.User, res.Mysql.Password, isValid,
 	)
 
 }
