@@ -39,7 +39,6 @@ func CheckDbConfigEmpty(db *DBConfig) map[string]bool {
 
 }
 
-// func CheckDbConfigApply(db *DBConfig) map[string]bool {
 func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
 
 	var valid bool
@@ -140,8 +139,6 @@ func (config *DBConfig) CheckDbConfig() {
 	} else {
 		res.Mysql.User = false
 	}
-
-	// return res
 
 	fmt.Printf(`Check configuration DB connect file
 

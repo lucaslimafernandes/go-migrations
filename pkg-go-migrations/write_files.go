@@ -9,14 +9,6 @@ import (
 func write_in(s *string, flname string, rowsAff int, lastId int) error {
 
 	_ = os.Mkdir("migrations/applied", os.ModePerm)
-	// if err != nil {
-	// fmt.Println("Failed to create '/migrations/applied' path: ", err)
-	// return err
-	// }
-
-	// fmt.Println("Write this function to write in sql files: Applied datetime")
-
-	// fi, _ := ReadMigration("0001", ".up.sql")
 
 	dt := time.Now()
 	formattedTime := dt.Format("2006-01-02 15:04:05")

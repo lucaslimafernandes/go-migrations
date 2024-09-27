@@ -84,9 +84,7 @@ func ReadYamlConfig(filename string) (*DBConfig, error) {
 
 func ReadMigration(migId string, mode string) (string, string, error) {
 
-	// Need return filename
 	var err error
-	// migrations := make(map[string]bool)
 	var migration string
 
 	ls, err := os.ReadDir("migrations")

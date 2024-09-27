@@ -3,6 +3,7 @@ package pkggomigrations
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"log"
 )
 
@@ -25,6 +26,12 @@ func Migrate(version string, db *sql.DB, upDown string) {
 	rowsAff, _ := result.RowsAffected()
 	lastId, _ := result.LastInsertId()
 
-	_ = write_in(&fi, flname, int(rowsAff), int(lastId))
+	err = write_in(&fi, flname, int(rowsAff), int(lastId))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("Migration applied sucessfully: ", flname)
 
 }
