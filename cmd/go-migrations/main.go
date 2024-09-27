@@ -98,32 +98,17 @@ func handler() {
 	}
 
 	if *_checkConfig {
+
+		var p *pkggomigrations.DBConfig
+
 		p, e := pkggomigrations.ReadYamlConfig("configs.yaml")
 		if e != nil {
 			fmt.Printf("%v - version: %v\n", projectToml.Project.Name, projectToml.Project.Version)
 			fmt.Println(e)
 		} else {
-			verif := pkggomigrations.CheckDbConfig(p)
 			fmt.Printf("%v - version: %v\n", projectToml.Project.Name, projectToml.Project.Version)
-			fmt.Printf(`Check configuration DB connect file
+			p.CheckDbConfig()
 
-Postgres:
-	APPLY: %v
-	HOST: %v
-	PORT: %v
-	USER: %v
-	PASSWORD: %v
-Mysql:
-	APPLY: %v
-	HOST: %v
-	PORT: %v
-	USER: %v
-	PASSWORD: %v
-
-`,
-				verif.Postgres.Apply, verif.Postgres.Host, verif.Postgres.Port, verif.Postgres.User, verif.Postgres.Password,
-				verif.Mysql.Apply, verif.Mysql.Host, verif.Mysql.Port, verif.Mysql.User, verif.Mysql.Password,
-			)
 		}
 
 		return

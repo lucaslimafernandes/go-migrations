@@ -4,4 +4,4 @@ CREATE TABLE users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
---Applied at: 2024-09-23 09:52:17
+--Applied at: 2024-09-26 21:34:54

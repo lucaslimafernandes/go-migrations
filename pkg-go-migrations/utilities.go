@@ -1,5 +1,7 @@
 package pkggomigrations
 
+import "fmt"
+
 type VerifyDbConfig struct {
 	Postgres struct {
 		Apply    bool `yaml:"APPLY"`
@@ -65,7 +67,7 @@ func (db *DBConfig) CheckDbConfigApply() (map[string]bool, bool) {
 
 }
 
-func CheckDbConfig(config *DBConfig) VerifyDbConfig {
+func (config *DBConfig) CheckDbConfig() {
 
 	var res VerifyDbConfig
 
@@ -137,6 +139,26 @@ func CheckDbConfig(config *DBConfig) VerifyDbConfig {
 		res.Mysql.User = false
 	}
 
-	return res
+	// return res
+
+	fmt.Printf(`Check configuration DB connect file
+
+Postgres:
+	APPLY: %v
+	HOST: %v
+	PORT: %v
+	USER: %v
+	PASSWORD: %v
+Mysql:
+	APPLY: %v
+	HOST: %v
+	PORT: %v
+	USER: %v
+	PASSWORD: %v
+
+`,
+		res.Postgres.Apply, res.Postgres.Host, res.Postgres.Port, res.Postgres.User, res.Postgres.Password,
+		res.Mysql.Apply, res.Mysql.Host, res.Mysql.Port, res.Mysql.User, res.Mysql.Password,
+	)
 
 }
