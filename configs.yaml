@@ -1,5 +1,8 @@
+migrations:
+  PATH: /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations/
+
 postgres:
-  APPLY: true
+  APPLY: false
   HOST: localhost
   PORT: 5432
   USER: postgres
@@ -7,10 +10,10 @@ postgres:
   DBNAME: postgres
 
 mysql:
-  APPLY: false
+  APPLY: true
   HOST: localhost
   PORT: 3306
   USER: myuser
-  PASSWORD: user_password
+  PASSWORD: password
   DBNAME: mydb
   ROOT_PASSWORD: root_password
