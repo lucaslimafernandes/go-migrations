@@ -19,7 +19,8 @@ func DBConnect(pgConfig pkggomigrations.DBConfig, wDb string) (*sql.DB, error) {
 	if wDb == "postgres" {
 		connStr = fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", pgConfig.Postgres.Host, pgConfig.Postgres.User, pgConfig.Postgres.Password, pgConfig.Postgres.Dbname)
 	} else if wDb == "mysql" {
-		connStr = fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", pgConfig.Mysql.Host, pgConfig.Mysql.User, pgConfig.Mysql.Password, pgConfig.Mysql.Dbname)
+		// user:password@/dbname
+		connStr = fmt.Sprintf("%s:%s@/%s", pgConfig.Mysql.User, pgConfig.Mysql.Password, pgConfig.Mysql.Dbname)
 	}
 
 	db, err := sql.Open(wDb, connStr)
