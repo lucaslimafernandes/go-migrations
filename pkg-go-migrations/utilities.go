@@ -3,6 +3,9 @@ package pkggomigrations
 import "fmt"
 
 type VerifyDbConfig struct {
+	Migrations struct {
+		PathMigrations bool `yaml:"PATH"`
+	} `yaml:"migrations"`
 	Postgres struct {
 		Apply    bool `yaml:"APPLY"`
 		Host     bool `yaml:"HOST"`
@@ -141,6 +144,16 @@ func (config *DBConfig) CheckDbConfig() {
 	_, isValid := config.CheckDbConfigApply()
 
 	//
+	// Verification Migrations Path
+	//
+
+	if config.Migrations.PathMigrations != "" {
+		res.Migrations.PathMigrations = true
+	} else {
+		res.Migrations.PathMigrations = false
+	}
+
+	//
 	// Verification Postgres
 	//
 
@@ -210,6 +223,9 @@ func (config *DBConfig) CheckDbConfig() {
 
 	fmt.Printf(`Check configuration DB connect file
 
+Path for migrations is ok: %v
+	%v
+
 Postgres:
 	APPLY: %v
 	HOST: %v
@@ -227,6 +243,7 @@ Is Valid: %v
 go-migrations accept only one DB at a time 
 
 `,
+		res.Migrations.PathMigrations, config.Migrations.PathMigrations,
 		res.Postgres.Apply, res.Postgres.Host, res.Postgres.Port, res.Postgres.User, res.Postgres.Password,
 		res.Mysql.Apply, res.Mysql.Host, res.Mysql.Port, res.Mysql.User, res.Mysql.Password, isValid,
 	)

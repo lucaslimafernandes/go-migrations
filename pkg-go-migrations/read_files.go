@@ -26,6 +26,9 @@ type ProjectToml struct {
 }
 
 type DBConfig struct {
+	Migrations struct {
+		PathMigrations string `yaml:"PATH"`
+	} `yaml:"migrations"`
 	Postgres struct {
 		Apply    bool   `yaml:"APPLY"`
 		Host     string `yaml:"HOST"`
