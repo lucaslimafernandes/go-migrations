@@ -124,3 +124,110 @@ func TestCheckDbConfigEmpty(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckDbConfigApply(t *testing.T) {
+
+	tests := []struct {
+		name       string
+		dbConfig   pkggomigrations.DBConfig
+		wantResult bool
+	}{
+		{
+			name: "Both Postgres and MySQL apply is true - valid is false",
+			dbConfig: pkggomigrations.DBConfig{
+				Postgres: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{
+					Apply:    true,
+					Host:     "localhost",
+					Port:     "5432",
+					User:     "postgres",
+					Password: "password",
+					Dbname:   "postgres",
+				},
+				Mysql: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{
+					Apply:    true,
+					Host:     "localhost",
+					Port:     "3306",
+					User:     "myuser",
+					Password: "user_password",
+					Dbname:   "mydb",
+				},
+			},
+			wantResult: false,
+		},
+		{
+			name: "Only Postgres apply is true - valid is true",
+			dbConfig: pkggomigrations.DBConfig{
+				Postgres: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{
+					Apply:    true,
+					Host:     "localhost",
+					Port:     "5432",
+					User:     "postgres",
+					Password: "password",
+					Dbname:   "postgres",
+				},
+				Mysql: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{},
+			},
+			wantResult: true,
+		},
+		{
+			name: "No applies filled",
+			dbConfig: pkggomigrations.DBConfig{
+				Postgres: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{},
+				Mysql: struct {
+					Apply    bool   "yaml:\"APPLY\""
+					Host     string "yaml:\"HOST\""
+					Port     string "yaml:\"PORT\""
+					User     string "yaml:\"USER\""
+					Password string "yaml:\"PASSWORD\""
+					Dbname   string "yaml:\"DBNAME\""
+				}{},
+			},
+			wantResult: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, got := tt.dbConfig.CheckDbConfigApply()
+			if !reflect.DeepEqual(got, tt.wantResult) {
+				t.Errorf("CheckDbConfigEmpty() = %v, want %v", got, tt.wantResult)
+			}
+		})
+	}
+
+}
