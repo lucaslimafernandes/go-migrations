@@ -45,7 +45,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
   - [X] Display success or failure messages after each migration.
 - [X] Implement support for the `migrate down` command in the CLI.
   - [ ] Add rollback for the last applied migrations.
-- [ ] Add support for multiple databases (PostgreSQL, MySQL).
+- [X] Add support for multiple databases (PostgreSQL, MySQL).
 - [ ] Create an interface for integrating the package with other Go applications.
   - [ ] Export migration functions for use in other software.
 
@@ -62,7 +62,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
   - [ ] Explain how to use `migrate up` and `migrate down`.
   - [ ] Provide instructions for integration with other Go projects.
 - [ ] Create detailed documentation for the exported methods in the `pkg-go-migrations` package.
-- [ ] Write functions documentations.
+- [X] Write functions documentations.
 
 ### Future Improvements
 - [ ] Implement support for automatic migrations based on schema files.
@@ -80,12 +80,12 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 
 #### Database Operations
 - [X] Create PostgreSQL connections.
-- [ ] Create MySQL connections.
+- [X] Create MySQL connections.
 - [ ] Test and validate database connections.
 
 #### Migrations Management
 - [ ] Implement error handling for migration failures.
-- [ ] Log success or failure of migrations.
+- [X] Log success or failure of migrations.
 - [ ] Implement rollback for migrations.
 - [ ] Handle concurrent migrations execution.
   
@@ -97,6 +97,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
   - [X] migrate-up - Add Mkdir applied
   - [X] migrate-down
   - [ ] migrate-ls
+  - [X] Ping DB
 - [ ] Display detailed logs on the CLI for each step of the migration.
 - [ ] Provide CLI options for dry-run migrations.
 
