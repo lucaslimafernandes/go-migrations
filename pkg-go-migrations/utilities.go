@@ -105,7 +105,7 @@ func (db *DBConfig) CheckDbConfigApply() (map[string]string, bool) {
 // `Host`, `Port`, `User`, and `Password`, and prints a formatted summary of the validation results.
 //
 // This function also checks if the configuration is valid by ensuring only one of Postgres or MySQL
-// has the `Apply` flag set to true.
+// has the `Apply` flag set to true and the path for migrations.
 //
 // Params:
 // - config: A pointer to the DBConfig structure that holds the configuration for Postgres and MySQL.
@@ -118,6 +118,11 @@ func (db *DBConfig) CheckDbConfigApply() (map[string]string, bool) {
 // Example output:
 //
 //	Check configuration DB connect file
+//
+// Path for migrations is ok: true
+//
+//	/path/migrations/
+//
 //	Postgres:
 //	  APPLY: true
 //	  HOST: true
