@@ -101,6 +101,12 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Display detailed logs on the CLI for each step of the migration.
 - [ ] Provide CLI options for dry-run migrations.
 
+#### Tests
+- [ ] read files
+  - [X] ReadProjectToml
+  - [ ] ReadYamlConfig 
+  - [ ] ReadMigration 
+
 
 ---
 
