@@ -72,7 +72,7 @@ func handler() {
 	}
 
 	if *_help {
-		fmt.Printf("Usage of %v <%v>", projectToml.Project.Name, projectToml.Project.Version)
+		fmt.Printf("Usage of %v <%v>\n", projectToml.Project.Name, projectToml.Project.Version)
 		flag.PrintDefaults()
 		return
 	}

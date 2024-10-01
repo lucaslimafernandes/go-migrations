@@ -1,9 +1,7 @@
-# project.toml
-
 [project]
 name = "go-migrations"
 version = "v0.1.0"
-description = "A CLI tool and Go library for managing database migrations."
+description = "A CLI tool for managing database migrations."
 
 [developer]
 author = "Lucas Lima Fernandes"
