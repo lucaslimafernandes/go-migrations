@@ -29,3 +29,7 @@ func TestReadProjectToml(t *testing.T) {
 	}
 
 }
+
+func TestReadYamlConfig(t *testing.T) {
+
+}
