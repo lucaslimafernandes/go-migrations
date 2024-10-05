@@ -7,32 +7,51 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 
 ```
 .
+├── CHANGELOG.md
 ├── cmd
 │   └── go-migrations
 │       └── main.go
 ├── configs.yaml
+├── CONTRIBUTING.md
 ├── go.mod
 ├── go.sum
 ├── internal
 │   └── db
-│       └── connect.go
+│       ├── connect.go
+│       └── connect_test.go
 ├── LICENSE
+├── mariadb.sh
 ├── migrations
 │   ├── 0001_create_users_table.down.sql
 │   ├── 0001_create_users_table.up.sql
-│   └── applied
+│   ├── 0002_create_users_table_mysql.down.sql
+│   ├── 0002_create_users_table_mysql.up.sql
+│   ├── 0003b_create_insert_users.mysql.up.sql
+│   ├── 0003c_create_insert_users.mysql.up.sql
+│   ├── 0003_create_insert_users.mysql.down.sql
+│   ├── 0003_create_insert_users.mysql.up.sql
+│   ├── 0004_create_insert_users.postgres.down.sql
+│   ├── 0004_create_insert_users.postgres.up.sql
+│   ├── applied
+│   │   ├── 0004_create_insert_users.postgres.down.sql
+│   │   ├── 0004_create_insert_users.postgres.up.sql
+│   │   └── T0001_SELECT_1.up.sql
+│   └── T0001_SELECT_1.up.sql
+├── mysql.sh
 ├── pkg-go-migrations
-│   ├── migrates.go
+│   ├── migrate.go
+│   ├── migrate_test.go
 │   ├── read_files.go
+│   ├── read_files_test.go
 │   ├── utilities.go
+│   ├── utilities_test.go
 │   └── write_files.go
 ├── postgres.sh
 ├── project.toml
 ├── README.md
 └── TODO.md
 
-7 directories, 16 files
-
+7 directories, 36 files
 ```
 
 ---
@@ -53,9 +72,9 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [ ] Refactor the project structure:
   - [X] Create a `migrations` folder to store migration files.
   - [ ] Modularize the migration functions in the `pkg-go-migrations/` directory.
-- [ ] Write unit tests for the migration functions.
-  - [ ] Test `up` migrations.
-  - [ ] Test `down` migration rollbacks.
+- [X] Write unit tests for the migration functions.
+  - [X] Test `up` migrations.
+  - [X] Test `down` migration rollbacks.
 
 ### Documentation
 - [ ] Add a "How to use" section to `README.md` to explain the CLI commands.
@@ -81,7 +100,7 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 #### Database Operations
 - [X] Create PostgreSQL connections.
 - [X] Create MySQL connections.
-- [ ] Test and validate database connections.
+- [X] Test and validate database connections.
 
 #### Migrations Management
 - [ ] Implement error handling for migration failures.
@@ -106,19 +125,17 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
 - [X] db
   - [X] connect
     - [X] DBConnect
-- [ ] pkggomigrations
-  - [ ] migrates
-    - [ ] Migrate
-  - [ ] read files
+- [X] pkggomigrations
+  - [X] migrates
+    - [X] Migrate
+  - [X] read files
     - [X] ReadProjectToml
     - [X] ReadYamlConfig 
     - [X] ReadMigration 
-  - [ ] utilities
+  - [X] utilities
     - [X] CheckDbConfigEmpty
     - [X] CheckDbConfigApply
     - [X] CheckDbConfig
-  - [ ] write files
-    - [ ] write_in
 
 
 
