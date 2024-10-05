@@ -43,3 +43,11 @@ func TestReadYamlConfig(t *testing.T) {
 	}
 
 }
+
+func TestReadMigration(t *testing.T) {
+
+	_migrateVersion := "T001"
+
+	pkggomigrations.ReadMigration(_migrateVersion, ".up.sql")
+
+}
