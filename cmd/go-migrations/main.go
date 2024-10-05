@@ -151,11 +151,11 @@ func handler() {
 		}
 
 		if *_migrateUp && !*_migrateDown {
-			pkggomigrations.Migrate(*_migrateVersion, database, ".up.sql")
+			pkggomigrations.Migrate(*_migrateVersion, database, ".up.sql", p.Migrations.PathMigrations)
 		}
 
 		if !*_migrateUp && *_migrateDown {
-			pkggomigrations.Migrate(*_migrateVersion, database, ".down.sql")
+			pkggomigrations.Migrate(*_migrateVersion, database, ".down.sql", p.Migrations.PathMigrations)
 		}
 
 	}

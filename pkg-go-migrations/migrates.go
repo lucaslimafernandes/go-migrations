@@ -9,9 +9,9 @@ import (
 
 // Migrate applies a migration to the database, either up or down based on the 'upDown' parameter.
 // It executes the SQL script corresponding to the migration version and direction (up/down).
-func Migrate(version string, db *sql.DB, upDown string) {
+func Migrate(version string, db *sql.DB, upDown string, pathMigrations string) {
 
-	fi, flname, _ := ReadMigration(version, upDown)
+	fi, flname, _ := ReadMigration(version, upDown, pathMigrations)
 
 	driver, err := db.Conn(context.Background())
 	if err != nil {

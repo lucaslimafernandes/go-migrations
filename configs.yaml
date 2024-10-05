@@ -1,5 +1,5 @@
 migrations:
-  PATH: /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations/
+  PATH: /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations
 
 postgres:
   APPLY: true

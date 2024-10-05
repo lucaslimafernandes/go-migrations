@@ -101,12 +101,9 @@ func ReadYamlConfig(filename string) (*DBConfig, error) {
 
 // ReadMigration read the migration file to executes migrations based on the 'version' and 'mode' parameters.
 // It returns the file content, the filename and an error if something goes wrong.
-func ReadMigration(version string, mode string) (string, string, error) {
+func ReadMigration(version string, mode string, pathMigrations string) (content string, filename string, err error) {
 
-	var err error
-	var migration string
-
-	ls, err := os.ReadDir("migrations")
+	ls, err := os.ReadDir(pathMigrations)
 	if err != nil {
 		log.Printf("Failed to load path 'migrations': %v\n", err)
 		return "nil", "nil", err
@@ -114,16 +111,18 @@ func ReadMigration(version string, mode string) (string, string, error) {
 
 	for _, value := range ls {
 		if strings.HasPrefix(value.Name(), version) && strings.HasSuffix(value.Name(), mode) {
-			migration = value.Name()
+			filename = value.Name()
 			break
 		}
 	}
 
-	f, err := os.ReadFile(fmt.Sprintf("migrations/%s", migration))
+	bcontent, err := os.ReadFile(fmt.Sprintf("%s/%s", pathMigrations, filename))
 	if err != nil {
-		log.Printf("Failed to read file (%s): %v\n", migration, err)
+		log.Printf("Failed to read file (%s): %v\n", filename, err)
 		return "nil", "nil", err
 	}
 
-	return string(f), migration, err
+	content = string(bcontent)
+
+	return content, filename, err
 }

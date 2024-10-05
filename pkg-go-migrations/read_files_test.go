@@ -34,20 +34,32 @@ func TestReadYamlConfig(t *testing.T) {
 
 	dbConf, err := pkggomigrations.ReadYamlConfig("../configs.yaml")
 	if err != nil {
-		t.Errorf("Expected err <nil>, got %v", err)
+		t.Errorf("Expected err <nil>, got %v\n", err)
 	}
 
 	isValid := dbConf.CheckDbConfig()
 	if !isValid {
-		t.Errorf("Expected configs.yaml is valid, got %v", isValid)
+		t.Errorf("Expected configs.yaml is valid, got %v\n", isValid)
 	}
 
 }
 
 func TestReadMigration(t *testing.T) {
 
-	_migrateVersion := "T001"
+	_migrateVersion := "T0001"
+	path := "/home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations"
 
-	pkggomigrations.ReadMigration(_migrateVersion, ".up.sql")
+	content, filename, err := pkggomigrations.ReadMigration(_migrateVersion, ".up.sql", path)
+	if err != nil {
+		t.Errorf("Expected read file, got %v\n", err)
+	}
+
+	if content != "SELECT 1 ;" {
+		t.Errorf("Expected: SELECT 1 ; got: %s", content)
+	}
+
+	if filename != "T0001_SELECT_1.up.sql" {
+		t.Errorf("Expected filename: %s, got: %s\n", "T0001_SELECT_1.up.sql", filename)
+	}
 
 }
