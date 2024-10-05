@@ -112,11 +112,11 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
   - [ ] read files
     - [X] ReadProjectToml
     - [X] ReadYamlConfig 
-    - [ ] ReadMigration 
+    - [X] ReadMigration 
   - [ ] utilities
     - [X] CheckDbConfigEmpty
     - [X] CheckDbConfigApply
-    - [ ] CheckDbConfig
+    - [X] CheckDbConfig
   - [ ] write files
     - [ ] write_in
 
