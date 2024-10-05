@@ -37,7 +37,7 @@ func TestDBConnect(t *testing.T) {
 			Host:     "localhost",
 			Port:     "3306",
 			User:     "myuser",
-			Password: "user_password",
+			Password: "password",
 			Dbname:   "mydb",
 		},
 	}
