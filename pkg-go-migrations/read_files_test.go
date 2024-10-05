@@ -1,6 +1,9 @@
 package pkggomigrations_test
 
 import (
+	"fmt"
+	"path/filepath"
+	"runtime"
 	"testing"
 
 	pkggomigrations "github.com/lucaslimafernandes/go-migrations/pkg-go-migrations"
@@ -31,5 +34,13 @@ func TestReadProjectToml(t *testing.T) {
 }
 
 func TestReadYamlConfig(t *testing.T) {
+
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+
+	dbConf, err := pkggomigrations.ReadYamlConfig(fmt.Sprintf("%s/configs.yaml", dir))
+	if err != nil {
+		t.Errorf("Expected err <nil>, got %v", err)
+	}
 
 }

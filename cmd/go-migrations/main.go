@@ -87,7 +87,7 @@ func handler() {
 		if e != nil {
 			fmt.Println(e)
 		} else {
-			p.CheckDbConfig()
+			_ = p.CheckDbConfig()
 		}
 
 		return

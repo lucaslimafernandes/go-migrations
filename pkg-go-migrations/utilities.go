@@ -142,7 +142,7 @@ func (db *DBConfig) CheckDbConfigApply() (map[string]string, bool) {
 //
 //	config := &DBConfig{...}
 //	config.CheckDbConfig()
-func (config *DBConfig) CheckDbConfig() {
+func (config *DBConfig) CheckDbConfig() bool {
 
 	var res VerifyDbConfig
 
@@ -252,5 +252,7 @@ go-migrations accept only one DB at a time
 		res.Postgres.Apply, res.Postgres.Host, res.Postgres.Port, res.Postgres.User, res.Postgres.Password,
 		res.Mysql.Apply, res.Mysql.Host, res.Mysql.Port, res.Mysql.User, res.Mysql.Password, isValid,
 	)
+
+	return isValid
 
 }
