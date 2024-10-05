@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/BurntSushi/toml"
@@ -53,7 +55,13 @@ func ReadProjectToml() (*ProjectToml, error) {
 
 	var pfile ProjectToml
 
-	f, err := os.ReadFile("project.toml")
+	// Get the dir path where is the code file is located
+	_, filename, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(filename)
+
+	projectPath := filepath.Join(dir, "..", "project.toml")
+
+	f, err := os.ReadFile(projectPath)
 	if err != nil {
 		log.Fatalf("Failed to read project docs: %v", err)
 	}
