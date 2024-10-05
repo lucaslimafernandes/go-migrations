@@ -13,7 +13,7 @@ func TestMigrate(t *testing.T) {
 
 	_migrateVersion := "T0001"
 
-	p, _ := pkggomigrations.ReadYamlConfig("configs.yaml")
+	p, _ := pkggomigrations.ReadYamlConfig("../configs.yaml")
 
 	wDb, isValid := p.CheckDbConfigApply()
 	if !isValid {

@@ -7,9 +7,10 @@ import (
 )
 
 // write_in logs the migration information to some storage (could be a file or a database)
-func write_in(s *string, flname string, rowsAff int, lastId int) error {
+func write_in(s *string, flname string, rowsAff int, lastId int, path string) error {
 
-	_ = os.Mkdir("migrations/applied", os.ModePerm)
+	mPath := fmt.Sprintf("%v/applied", path)
+	_ = os.Mkdir(mPath, os.ModePerm)
 
 	dt := time.Now()
 	formattedTime := dt.Format("2006-01-02 15:04:05")
@@ -20,7 +21,7 @@ func write_in(s *string, flname string, rowsAff int, lastId int) error {
 
 	fmt.Println(*s)
 
-	filePath := fmt.Sprintf("migrations/applied/%s", flname)
+	filePath := fmt.Sprintf("%s/%s", mPath, flname)
 	newFile, err := os.Create(filePath)
 	if err != nil {
 		fmt.Println("Failed to create file: ", err)

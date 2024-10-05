@@ -27,7 +27,7 @@ func Migrate(version string, db *sql.DB, upDown string, pathMigrations string) {
 	rowsAff, _ := result.RowsAffected()
 	lastId, _ := result.LastInsertId()
 
-	err = write_in(&fi, flname, int(rowsAff), int(lastId))
+	err = write_in(&fi, flname, int(rowsAff), int(lastId), pathMigrations)
 	if err != nil {
 		fmt.Println(err)
 		return
