@@ -34,6 +34,10 @@ jobs:
       with:
         go-version: '1.22.5'
 
+    - name: Copy migration files
+      run: cp -R migrations /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations
+
+
     - name: Build
       run: go build -v ./...
 
