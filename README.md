@@ -74,7 +74,7 @@ Migration applied sucessfully:  0001_create_users_table.up.sql
 ### Migrate-down
 
 ```bash
-go run cmd/go-migrations/main.go -migrate-down -v 0001              1 ↵
+go run cmd/go-migrations/main.go -migrate-down -v 0001              
 DROP TABLE if exists users;
 
 --Applied at: 2024-10-06 14:46:09

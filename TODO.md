@@ -137,6 +137,8 @@ This project is a CLI tool for managing database migrations for PostgreSQL, deve
     - [X] CheckDbConfigApply
     - [X] CheckDbConfig
 
+#### CI
+- [X] CI Github Actions : https://stackoverflow.com/questions/66134691/running-postgres-in-github-actions-to-test-my-go-api
 
 
 ---
