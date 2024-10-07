@@ -35,8 +35,11 @@ jobs:
         go-version: '1.22.5'
 
     - name: Copy migration files
-      run: cp -R migrations /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations
+      run: cp -R migrations /home/runner/work/go-migrations/go-migrations/
 
+    - name: Set environment variables
+      run: |
+        echo "MIGRATIONS_PATH=/home/runner/work/go-migrations/go-migrations/migrations" >> $GITHUB_ENV
 
     - name: Build
       run: go build -v ./...
