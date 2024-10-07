@@ -47,7 +47,8 @@ func TestReadYamlConfig(t *testing.T) {
 func TestReadMigration(t *testing.T) {
 
 	_migrateVersion := "T0001"
-	path := "/home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations"
+	// path := "/home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations"
+	path := "/home/runner/work/go-migrations/go-migrations/migrations"
 
 	content, filename, err := pkggomigrations.ReadMigration(_migrateVersion, ".up.sql", path)
 	if err != nil {
