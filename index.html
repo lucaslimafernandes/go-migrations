@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Go-migrations</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/fontawesome.min.css" rel="stylesheet">
+        <link href="css/brands.min.css" rel="stylesheet">
+        <link href="css/solid.min.css" rel="stylesheet">
+        <link href="css/v4-font-face.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">Go-migrations</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#go-migrations" class="nav-link">go-migrations</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#usage" class="nav-link">Usage</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#configuration-file" class="nav-link">Configuration file</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="go-migrations">go-migrations</h1>
+<p>A database migration tool.</p>
+<h2 id="usage">Usage</h2>
+<h3 id="help">Help</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -help
+</code></pre>
+<pre><code class="language-bash">Usage of go-migrations &lt;0.1.0&gt;
+  -check-config
+        Verify the yaml file
+  -help
+        Show available commands
+  -migrate-down
+        Make migrations down
+  -migrate-up
+        Make migrations up
+  -ping
+        Check the DB connection
+  -v string
+        Specify the version ID for the migration (Format: 0001)
+  -version
+        Print version of the go-migrations
+
+</code></pre>
+<h3 id="check-config">Check-config</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -check-config
+go-migrations - version: 0.1.0
+Check configuration DB connect file
+
+Path for migrations is ok: true
+    /home/lucas/go/src/github.com/lucaslimafernandes/go-migrations/migrations
+
+Postgres:
+    APPLY: true
+    HOST: true
+    PORT: true
+    USER: true
+    PASSWORD: true
+Mysql:
+    APPLY: false
+    HOST: true
+    PORT: true
+    USER: true
+    PASSWORD: true
+
+Is Valid: true
+go-migrations accept only one DB at a time 
+</code></pre>
+<h3 id="migrate-up">Migrate-up</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -migrate-up -v 0001
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+--Applied at: 2024-10-06 14:44:37
+--Rows affected: 0
+--Last Id inserted: 0
+Migration applied sucessfully:  0001_create_users_table.up.sql
+</code></pre>
+<h3 id="migrate-down">Migrate-down</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -migrate-down -v 0001              
+DROP TABLE if exists users;
+
+--Applied at: 2024-10-06 14:46:09
+--Rows affected: 0
+--Last Id inserted: 0
+Migration applied sucessfully:  0001_create_users_table.down.sql
+</code></pre>
+<h3 id="ping">Ping</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -ping
+go-migrations - version: 0.1.0
+Ping
+Everything Ok!% 
+</code></pre>
+<h3 id="version">Version</h3>
+<pre><code class="language-bash">go run cmd/go-migrations/main.go -version
+go-migrations - version: 0.1.0
+</code></pre>
+<h2 id="configuration-file">Configuration file</h2>
+<p>The <code>configs.yaml</code> file is used to configure the database connection settings and migration paths for the go-migrations tool. It defines settings for both PostgreSQL and MySQL databases, allowing the user to configure which database to apply migrations to. Below is a detailed explanation of each section in the configs.yaml file:</p>
+<ol>
+<li>
+<p>Migrations</p>
+</li>
+<li>
+<p>PATH: Specifies the directory where the migration files are stored. The migration files define the database schema changes and are applied in sequence. Ensure that this path points to the correct directory where the .sql migration files (e.g., .up.sql and .down.sql) are located.</p>
+</li>
+<li>
+<p>PostgreSQL Configuration</p>
+</li>
+<li>
+<p>APPLY: Set to true to apply migrations to the PostgreSQL database.</p>
+</li>
+<li>HOST: The hostname or IP address of the PostgreSQL server. Defaults to localhost if running on the same machine.</li>
+<li>PORT: The port number to connect to PostgreSQL. The default PostgreSQL port is 5432.</li>
+<li>USER: The username to use when connecting to the PostgreSQL database.</li>
+<li>PASSWORD: The password for the specified PostgreSQL user.</li>
+<li>
+<p>DBNAME: The name of the PostgreSQL database where migrations will be applied.</p>
+</li>
+<li>
+<p>MySQL Configuration</p>
+</li>
+<li>
+<p>APPLY: Set to true to apply migrations to the MySQL database. Set to false if PostgreSQL is being used instead.</p>
+</li>
+<li>HOST: The hostname or IP address of the MySQL server. Defaults to localhost.</li>
+<li>PORT: The port number to connect to MySQL. The default MySQL port is 3306.</li>
+<li>USER: The username to use when connecting to the MySQL database.</li>
+<li>PASSWORD: The password for the specified MySQL user.</li>
+<li>DBNAME: The name of the MySQL database where migrations will be applied.</li>
+<li>ROOT_PASSWORD: The root password for the MySQL server.</li>
+</ol>
+<p>Note: To run migrations on PostgreSQL, ensure that APPLY is set to true. If you are only using MySQL, set APPLY to false for PostgreSQL.</p>
+<p>To run migrations on PostgreSQL, ensure that:</p>
+<ul>
+<li>postgres.APPLY is set to true.</li>
+<li>mysql.APPLY is set to false.</li>
+</ul>
+<p>To run migrations on MySQL, ensure that:</p>
+<ul>
+<li>mysql.APPLY is set to true.</li>
+<li>postgres.APPLY is set to false.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2024-10-08 13:29:52.644585+00:00
+-->
